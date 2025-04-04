@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { BookOpen, Menu, Users, Award, Home, LogOut, Coffee } from 'lucide-react';
+import { BookOpen, Menu, Users, Award, Home, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import {
@@ -85,7 +85,11 @@ const Layout = () => {
       {!isMobile && (
         <aside className="w-64 border-r border-studyrat-border p-4 flex flex-col">
           <div className="flex items-center gap-2 mb-8 text-xl text-gradient font-bold">
-            <Coffee size={24} className="text-studyrat-purple" />
+            <img 
+              src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
+              alt="StudyRat Logo" 
+              className="w-6 h-6" 
+            />
             <span>StudyRats</span>
           </div>
           <NavContent />
@@ -97,7 +101,11 @@ const Layout = () => {
           <header className="border-b border-studyrat-border p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xl text-gradient font-bold">
-                <Coffee size={24} className="text-studyrat-purple" />
+                <img 
+                  src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
+                  alt="StudyRat Logo" 
+                  className="w-6 h-6" 
+                />
                 <span>StudyRats</span>
               </div>
               <Sheet>
@@ -109,7 +117,11 @@ const Layout = () => {
                 <SheetContent side="left" className="bg-studyrat-dark border-studyrat-border">
                   <SheetHeader className="mb-4">
                     <SheetTitle className="text-gradient flex items-center gap-2">
-                      <Coffee size={24} className="text-studyrat-purple" />
+                      <img 
+                        src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
+                        alt="StudyRat Logo" 
+                        className="w-6 h-6" 
+                      />
                       StudyRats
                     </SheetTitle>
                   </SheetHeader>

@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Coffee } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import {
@@ -69,7 +68,11 @@ const Register = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <div className="flex justify-center mb-2">
-            <Coffee size={40} className="text-studyrat-purple animate-pulse-light" />
+            <img 
+              src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
+              alt="StudyRat Logo" 
+              className="w-16 h-16 animate-pulse-light" 
+            />
           </div>
           <h1 className="text-3xl font-bold text-gradient">
             Join StudyRats

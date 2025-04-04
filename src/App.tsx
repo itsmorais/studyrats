@@ -16,7 +16,7 @@ import Groups from "./pages/groups/Groups";
 import GroupDetail from "./pages/groups/GroupDetail";
 import CreateGroup from "./pages/groups/CreateGroup";
 import JoinGroup from "./pages/groups/JoinGroup";
-import Logs from "./pages/logs/Logs";
+import Logs from "./pages/logGroup/Logs";
 import Leaderboard from "./pages/leaderboard/Leaderboard";
 import NotFound from "./pages/NotFound";
 

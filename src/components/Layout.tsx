@@ -88,7 +88,7 @@ const Layout = () => {
             <img 
               src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
               alt="StudyRat Logo" 
-              className="w-6 h-6" 
+              className="w-12 h-12" 
             />
             <span>StudyRats</span>
           </div>
@@ -101,11 +101,11 @@ const Layout = () => {
           <header className="border-b border-studyrat-border p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xl text-gradient font-bold">
-                <img 
-                  src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
-                  alt="StudyRat Logo" 
-                  className="w-6 h-6" 
-                />
+              <img 
+              src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
+              alt="StudyRat Logo" 
+              className="w-12 h-12" 
+            />
                 <span>StudyRats</span>
               </div>
               <Sheet>
@@ -117,11 +117,11 @@ const Layout = () => {
                 <SheetContent side="left" className="bg-studyrat-dark border-studyrat-border">
                   <SheetHeader className="mb-4">
                     <SheetTitle className="text-gradient flex items-center gap-2">
-                      <img 
-                        src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
-                        alt="StudyRat Logo" 
-                        className="w-6 h-6" 
-                      />
+                    <img 
+              src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
+              alt="StudyRat Logo" 
+              className="w-12 h-12" 
+            />
                       StudyRats
                     </SheetTitle>
                   </SheetHeader>

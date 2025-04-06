@@ -19,13 +19,9 @@ const Home = () => {
   }, [user]);
 
   return (
-    <div className="space-y-6 min-h-screen">
-      <div className="flex items-center justify-evenly">
-        <div>
-          <h1 className="text-xl font-bold"> Welcome, {user?.username}!</h1>
-          {/*           <p className="text-studyrat-secondary text-sm mt-1">Track your study sessions and stay motivated</p>
- */}        </div>
-
+    <div className="space-y-3 min-h-screen">
+      <div className="flex items-center">
+ 
         <Link to="/logs">
           <Button
             className="fixed bottom-6 right-6 z-50 bg-studyrat-purple hover:bg-studyrat-purpleLight text-white text-lg px-6 py-4 rounded-full shadow-lg"

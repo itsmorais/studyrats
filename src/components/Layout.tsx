@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -53,6 +54,8 @@ const Layout = () => {
     <div className="flex flex-col h-full">
       <div className="flex flex-col space-y-4">
         {navItems.map((item) => (
+          <SheetClose asChild key={item.path}>
+
           <Link
             key={item.path}
             to={item.path}
@@ -65,6 +68,7 @@ const Layout = () => {
             {item.icon}
             <span>{item.label}</span>
           </Link>
+          </SheetClose>
         ))}
       </div>
       <div className="mt-auto pt-4">
@@ -122,7 +126,7 @@ const Layout = () => {
                         alt="StudyRat Logo"
                         className="w-12 h-12"
                       />
-                      <span className="text-2xl align-center">StudyRats</span>
+                      <span className="text-2xl align-center">{user.username}</span>
                     </SheetTitle>
                   </SheetHeader>
                   <div className="py-2">

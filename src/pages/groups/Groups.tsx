@@ -87,21 +87,7 @@ const Groups = () => {
         </div>
       )}
 
-      <div className="mt-8">
-        <Card className="bg-studyrat-border/20 border-studyrat-border">
-          <CardHeader>
-            <CardTitle className="text-lg">Join a Study Group</CardTitle>
-            <CardDescription>Enter an invite code to join an existing group</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Link to="/groups/join">
-              <Button variant="outline" className="w-full border-studyrat-border">
-                Enter Invite Code
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
+     
     </div>
   );
 };

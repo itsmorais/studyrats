@@ -50,9 +50,9 @@ const Logs = () => {
   return (
     <div className="container mx-auto px-4 py-6 space-y-6">
       <header className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Study Logs</h1>
-          <p className="text-studyrat-secondary">Track your study progress</p>
+        <div className='mb-2'>
+          <h1 className="text-2xl font-bold mb-2">Study Logs</h1>
+          <p className="text-studyrat-secondary">Log your study progress</p>
         </div>
         
         <div className="flex flex-col sm:flex-row gap-3">

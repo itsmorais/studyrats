@@ -84,11 +84,11 @@ const Layout = () => {
     <div className="flex h-screen bg-studyrat-dark">
       {!isMobile && (
         <aside className="w-64 border-r border-studyrat-border p-4 flex flex-col">
-          <div className="flex items-center gap-2 mb-8 text-xl text-gradient font-bold">
-            <img 
-              src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
-              alt="StudyRat Logo" 
-              className="w-12 h-12" 
+          <div className="flex items-center gap-2 mb-8 text-xl text-gradient font-bold" onClick={() => navigate("/")}>
+            <img
+              src="/rat.png"
+              alt="StudyRat Logo"
+              className="w-12 h-12"
             />
             <span>StudyRats</span>
           </div>
@@ -100,29 +100,29 @@ const Layout = () => {
         {isMobile && (
           <header className="border-b border-studyrat-border p-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xl text-gradient font-bold">
-              <img 
-              src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
-              alt="StudyRat Logo" 
-              className="w-12 h-12" 
-            />
-                <span>StudyRats</span>
+              <div className="flex items-center gap-2 text-xl text-gradient font-bold" onClick={() => navigate("/")}>
+                <img
+                  src="/rat.png"
+                  alt="StudyRat Logo"
+                  className="w-12 h-12"
+                />
+                <span className="text-3xl align-center">StudyRats</span>
               </div>
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" >
                     <Menu size={20} />
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="bg-studyrat-dark border-studyrat-border">
                   <SheetHeader className="mb-4">
                     <SheetTitle className="text-gradient flex items-center gap-2">
-                    <img 
-              src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
-              alt="StudyRat Logo" 
-              className="w-12 h-12" 
-            />
-                      StudyRats
+                      <img
+                        src="/rat.png"
+                        alt="StudyRat Logo"
+                        className="w-12 h-12"
+                      />
+                      <span className="text-2xl align-center">StudyRats</span>
                     </SheetTitle>
                   </SheetHeader>
                   <div className="py-2">

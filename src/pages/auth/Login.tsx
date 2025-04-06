@@ -58,13 +58,13 @@ const Login = () => {
         <div className="text-center">
           <div className="flex justify-center mb-2">
           <img 
-              src="/lovable-uploads/db24af37-58d1-464e-9b55-dd6fd1e367fe.png" 
+              src="/rat.png" 
               alt="StudyRat Logo" 
-              className="w-48 h-48 animate-pulse-light" 
+              className="w-20 h-w-20 animate-pulse-light" 
             />
           </div>
           <h1 className="text-3xl font-bold text-gradient">
-            Welcome to StudyRats
+            Login StudyRats
           </h1>
           <p className="mt-2 text-sm text-studyrat-secondary">
             Sign in to continue your study journey

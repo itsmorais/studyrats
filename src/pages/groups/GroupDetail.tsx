@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Award, BookOpen, Clock, Copy, Share2, Users } from 'lucide-react';
+import { Award, BookOpen, Clock, Copy, Plus, Share2, Users } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { StudyLog } from '@/types';
 import StudyLogForm from '@/components/StudyLogForm';
@@ -18,16 +18,16 @@ const GroupDetail = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useAuth();
-  const { 
-    groups, 
-    currentGroup, 
-    selectGroup, 
+  const {
+    groups,
+    currentGroup,
+    selectGroup,
     groupLogs,
     leaderboard,
-    addStudyLog, 
+    addStudyLog,
     fetchGroupLogs,
     fetchLeaderboard,
-    isLoading 
+    isLoading
   } = useGroup();
   const [showStudyForm, setShowStudyForm] = useState(false);
   const [userLogs, setUserLogs] = useState<StudyLog[]>([]);
@@ -69,7 +69,8 @@ const GroupDetail = () => {
     }
   };
 
-  if (isLoading || !currentGroup) {
+  if (!isLoading && !currentGroup) {
+    console.log(isLoading, currentGroup)
     return (
       <div className="flex items-center justify-center h-64">
         <p>Loading study group...</p>
@@ -78,12 +79,12 @@ const GroupDetail = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-3">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold">{currentGroup.name}</h1>
           <p className="text-studyrat-secondary text-sm mt-1 flex items-center gap-2">
-            <Clock size={14} /> 
+            <Clock size={14} />
             {new Date(currentGroup.startDate).toLocaleDateString()}
             {currentGroup.endDate && ` - ${new Date(currentGroup.endDate).toLocaleDateString()}`}
           </p>
@@ -96,12 +97,18 @@ const GroupDetail = () => {
               <Copy size={14} />
             </Button>
           </div>
-          <Button variant="outline" size="icon" className="border-studyrat-border">
-            <Share2 size={16} />
-          </Button>
-          <Button className="bg-studyrat-purple hover:bg-studyrat-purpleLight" onClick={() => setShowStudyForm(true)}>
-            Log Study Session
-          </Button>
+
+          {!showStudyForm && (
+
+            <Button
+              className="fixed bottom-6 right-6 z-50 bg-studyrat-purple hover:bg-studyrat-purpleLight shadow-lg text-white px-4 py-2 rounded-full"
+              onClick={() => setShowStudyForm(true)}
+              size='icon'
+            >
+              <Plus size={16} />
+            </Button>
+
+          )}
         </div>
       </div>
 
@@ -124,9 +131,7 @@ const GroupDetail = () => {
           <TabsTrigger value="members" className="data-[state=active]:bg-studyrat-purple/20 data-[state=active]:text-studyrat-purple">
             <Users size={16} className="mr-1" /> Members
           </TabsTrigger>
-          <TabsTrigger value="my-logs" className="data-[state=active]:bg-studyrat-purple/20 data-[state=active]:text-studyrat-purple">
-            <Clock size={16} className="mr-1" /> My Logs
-          </TabsTrigger>
+
         </TabsList>
 
         <TabsContent value="feed" className="mt-6">
@@ -139,8 +144,8 @@ const GroupDetail = () => {
           ) : (
             <div className="text-center py-12">
               <p className="text-studyrat-secondary">No study logs yet</p>
-              <Button 
-                variant="link" 
+              <Button
+                variant="link"
                 className="text-studyrat-purple mt-2"
                 onClick={() => setShowStudyForm(true)}
               >
@@ -170,8 +175,8 @@ const GroupDetail = () => {
           ) : (
             <div className="text-center py-12">
               <p className="text-studyrat-secondary">You haven't logged any study sessions yet</p>
-              <Button 
-                variant="link" 
+              <Button
+                variant="link"
                 className="text-studyrat-purple mt-2"
                 onClick={() => setShowStudyForm(true)}
               >

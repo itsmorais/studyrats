@@ -1,6 +1,6 @@
 
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -30,10 +30,16 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const Register = () => {
-  const { register, isLoading, error } = useAuth();
-  const navigate = useNavigate();
+  const { register, isLoading, error, user } = useAuth();
   const { toast } = useToast();
   const [authError, setAuthError] = useState<string | null>(error);
+  const navigation = useNavigate()
+
+  useEffect(() => {
+    if (user?.token) {
+      navigation("/")
+    }
+  }, [user])
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -48,11 +54,6 @@ const Register = () => {
   const onSubmit = async (data: FormData) => {
     try {
       await register(data.username, data.email, data.password);
-      navigate('/');
-      toast({
-        title: "Account created!",
-        description: "Welcome to StudyRats! Your account has been successfully created.",
-      });
     } catch (err) {
       setAuthError('Registration failed. Please try again.');
       toast({
@@ -68,10 +69,10 @@ const Register = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <div className="flex justify-center mb-2">
-            <img 
-              src="/rat.png" 
-              alt="StudyRat Logo" 
-              className="w-20 h-w-20 animate-pulse-light" 
+            <img
+              src="/rat.png"
+              alt="StudyRat Logo"
+              className="w-20 h-w-20 animate-pulse-light"
             />
           </div>
           <h1 className="text-3xl font-bold text-gradient">
@@ -179,7 +180,7 @@ const Register = () => {
 
             <div className="text-center text-sm">
               <span className="text-studyrat-secondary">Already have an account? </span>
-              <Link to="/auth/login" className="text-studyrat-purple hover:underline">
+              <Link to="/" className="text-studyrat-purple hover:underline">
                 Sign in
               </Link>
             </div>

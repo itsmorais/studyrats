@@ -30,13 +30,13 @@ const Layout = () => {
 
   useEffect(() => {
     if (!user && !location.pathname.includes('/auth')) {
-      navigate('/auth/login');
+      navigate('/');
     }
   }, [user, navigate, location]);
 
   const handleLogout = () => {
     logout();
-    navigate('/auth/login');
+    navigate('/');
   };
 
   const navItems = [

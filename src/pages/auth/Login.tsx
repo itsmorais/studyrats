@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
 
 const formSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -26,9 +25,6 @@ type FormData = z.infer<typeof formSchema>;
 
 const Login = () => {
   const { login, isLoading, error } = useAuth();
-  const navigate = useNavigate();
-  const { toast } = useToast();
-  const [authError, setAuthError] = useState<string | null>(error);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -41,26 +37,22 @@ const Login = () => {
   const onSubmit = async (data: FormData) => {
     try {
       await login(data.email, data.password);
-      navigate('/');
+
     } catch (err) {
-      setAuthError('Login failed. Please check your credentials.');
-      toast({
-        variant: "destructive",
-        title: "Login failed",
-        description: "Please check your credentials and try again.",
-      });
-    }
-  };
+      console.log("CAIU AQUI NO FRONT")
+
+    };
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-studyrat-dark p-4">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <div className="flex justify-center mb-2">
-          <img 
-              src="/rat.png" 
-              alt="StudyRat Logo" 
-              className="w-20 h-w-20 animate-pulse-light" 
+            <img
+              src="/rat.png"
+              alt="StudyRat Logo"
+              className="w-20 h-w-20 animate-pulse-light"
             />
           </div>
           <h1 className="text-3xl font-bold text-gradient">
@@ -71,11 +63,7 @@ const Login = () => {
           </p>
         </div>
 
-        {authError && (
-          <div className="p-3 bg-destructive/20 border border-destructive rounded-md text-destructive text-sm">
-            {authError}
-          </div>
-        )}
+
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

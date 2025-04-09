@@ -1,6 +1,7 @@
 # 🐭 StudyRats
 <div display="flex">
-<img src="https://github.com/user-attachments/assets/906a580e-bdd3-4507-9ad7-2ce9bf9ef3ef" alt="StudyRats Hero" width="200" height="200"/>
+
+<img src="https://github.com/user-attachments/assets/4abf36d5-c50c-42e4-a555-2fd9bc93d02c" alt="StudyRats Hero" width="200" height="200"/>
 
   
 > **Powered by caffeine.**  

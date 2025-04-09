@@ -1,73 +1,100 @@
-# Welcome to your Lovable project
+# 🐭 StudyRats
+<div display="flex">
+<img src="https://github.com/user-attachments/assets/906a580e-bdd3-4507-9ad7-2ce9bf9ef3ef" alt="StudyRats Hero" width="200" height="200"/>
 
-## Project info
+  
+> **Powered by caffeine.**  
+> Uma plataforma social e divertida para transformar sua rotina de estudos em um jogo colaborativo.
+</div>
 
-**URL**: https://lovable.dev/projects/42cf2ccb-75ac-482f-85d6-8e8b8df36daa
 
-## How can I edit this code?
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 🚀 Visão Geral
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/42cf2ccb-75ac-482f-85d6-8e8b8df36daa) and start prompting.
+**StudyRats** é um app para estudantes que querem estudar com consistência, foco e motivação — juntos.
 
-Changes made via Lovable will be committed automatically to this repo.
+Inspirado na cultura fitness do GymRats, o StudyRats transforma estudos em missões com ranking, grupos de apoio e muita cafeína digital.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## ✨ Funcionalidades (MVP)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+| ID | Funcionalidade | Versão |
+|----|----------------|--------|
+| FR-01 | Autenticação com JWT | MVP |
+| FR-02 | Criação de grupos de estudo | MVP |
+| FR-03 | Entrada em grupos via convite | MVP |
+| FR-04 | Log de sessões de estudo | MVP |
+| FR-05 | Visualizar membros do grupo | MVP |
+| FR-06 | Ranking por tempo estudado | MVP |
+| FR-07 | Feed interno do grupo com os estudos | MVP |
+| FR-08 | Histórico pessoal de estudo | MVP |
 
-Follow these steps:
+➡️ Veja o roadmap completo mais abaixo.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🧩 Tecnologias
 
-# Step 3: Install the necessary dependencies.
-npm i
+| Camada | Stack |
+|--------|-------|
+| Frontend | React + TypeScript + TailwindCSS |
+| Backend | Node.js + Express + Prisma |
+| Auth | JWT |
+| DB | PostgreSQL |
+| Deploy | Vercel (FE) + Railway (BE) |
+| Mobile (futuro) | React Native ou PWA |
+| Armazenamento de imagens | Cloudinary |
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## 🧠 Público-Alvo
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- Universitários (especialmente no Brasil 🇧🇷)
+- Cursinhos, ENEM e vestibulares
+- Bootcamps, autodidatas e squads de estudo
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🗓️ Roadmap
 
-## What technologies are used for this project?
+| Versão | Funcionalidades | Codinome |
+|--------|------------------|----------|
+| 🟢 MVP | Grupos privados, feed básico, ranking | ☕ Espresso Shot |
+| 🔸 v1.1 | Upload de imagem + reações | 🔥 Feed Fogo |
+| 🟠 v1.2 | Comentários nos logs | 💬 Reply Rush |
+| 🔵 v1.3 | Explorar grupos públicos + feed aberto | 🌍 Open Grounds |
+| 🟣 v2.0 | Premium, onboarding universitário, XP/streak | 🏆 Liga das Faculdades |
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 💌 Contato e Interesse
 
-## How can I deploy this project?
+Quer ser avisado no lançamento ou testar o MVP?
 
-Simply open [Lovable](https://lovable.dev/projects/42cf2ccb-75ac-482f-85d6-8e8b8df36daa) and click on Share -> Publish.
+👉 Preencha na landing page: [studyrats.app](https://studyrats.app)  
 
-## Can I connect a custom domain to my Lovable project?
 
-Yes it is!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🎨 Identidade Visual
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+| Elemento | Cor |
+|----------|------|
+| Fundo | `#1C1C1E` |
+| Texto principal | `#F2F2F7` |
+| Destaques | `#A259FF`, `#C873FF` |
+| Gradientes | `from-[#fff] to-[#A259FF]` |
+| Fonte | `font-sans` (Tailwind) |
+
+---
+
+## 📚 Licença
+
+Este projeto está sob a licença MIT.  
+Feito com foco, cafeína, e um pouco de desespero acadêmico. ☕💻
+
+---
+

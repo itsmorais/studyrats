@@ -19,6 +19,15 @@ Inspirado na cultura fitness do GymRats, o StudyRats transforma estudos em miss�
 
 ---
 
+## 💌 Contato e Interesse
+
+Quer ser avisado no lançamento ou testar o MVP?
+
+👉 Preencha na landing page: [studyrats.app](https://studyrats-lp.vercel.app/)  
+
+---
+
+
 ## ✨ Funcionalidades (MVP)
 
 | ID | Funcionalidade | Versão |
@@ -67,14 +76,6 @@ Inspirado na cultura fitness do GymRats, o StudyRats transforma estudos em miss�
 | 🟠 v1.2 | Comentários nos logs | 💬 Reply Rush |
 | 🔵 v1.3 | Explorar grupos públicos + feed aberto | 🌍 Open Grounds |
 | 🟣 v2.0 | Premium, onboarding universitário, XP/streak | 🏆 Liga das Faculdades |
-
----
-
-## 💌 Contato e Interesse
-
-Quer ser avisado no lançamento ou testar o MVP?
-
-👉 Preencha na landing page: [studyrats.app](https://studyrats.app)  
 
 
 ---

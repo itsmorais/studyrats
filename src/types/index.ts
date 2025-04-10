@@ -1,4 +1,3 @@
-
 // User types
 export interface User {
   id: string;
@@ -14,15 +13,15 @@ export interface AuthUser extends User {
 
 // Study group types
 export interface StudyGroup {
-  id: string;
+  id: number;
   name: string;
-  description: string;
-  createdAt: string;
-  startDate: string;
-  endDate?: string;
-  inviteCode: string;
+  groupCode: string;
+  imageSrc: string;
   isPublic: boolean;
   ownerId: string;
+  startDate: Date;
+  endDate: Date | null;
+  createdAt: date;
 }
 
 // Study log types

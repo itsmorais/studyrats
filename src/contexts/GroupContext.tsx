@@ -1,7 +1,8 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { StudyGroup, StudyLog, LeaderboardEntry } from '../types';
 import { useAuth } from './AuthContext';
+import  createGroupService  from '@/services/createGroupService';
+import { useToast } from '@/components/ui/use-toast';
 
 interface GroupContextType {
   groups: StudyGroup[];
@@ -9,7 +10,7 @@ interface GroupContextType {
   groupLogs: StudyLog[];
   leaderboard: LeaderboardEntry[];
   fetchGroups: () => Promise<void>;
-  createGroup: (groupData: Partial<StudyGroup>) => Promise<void>;
+  createGroup: (groupData: Partial<StudyGroup> & { image?: File }) => Promise<void>;
   joinGroup: (inviteCode: string) => Promise<void>;
   selectGroup: (groupId: string) => void;
   addStudyLog: (groupId: string, minutes: number, note?: string) => Promise<void>;
@@ -39,6 +40,7 @@ export const useGroup = () => useContext(GroupContext);
 
 export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [groups, setGroups] = useState<StudyGroup[]>([]);
   const [currentGroup, setCurrentGroup] = useState<StudyGroup | null>(null);
   const [groupLogs, setGroupLogs] = useState<StudyLog[]>([]);
@@ -46,113 +48,36 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Mock data for demo purposes
-  const mockGroups: StudyGroup[] = [
-    {
-      id: '1',
-      name: 'ENEM Study Squad',
-      description: 'Preparing for ENEM 2023',
-      createdAt: '2023-01-15T00:00:00.000Z',
-      startDate: '2023-01-15T00:00:00.000Z',
-      endDate: '2023-11-30T00:00:00.000Z',
-      inviteCode: 'ENEM2023',
-      isPublic: true,
-      ownerId: '1',
-    },
-    {
-      id: '2',
-      name: 'CS50 Study Group',
-      description: 'Harvard CS50 study group',
-      createdAt: '2023-02-10T00:00:00.000Z',
-      startDate: '2023-02-10T00:00:00.000Z',
-      inviteCode: 'CS50HARV',
-      isPublic: false,
-      ownerId: '2',
-    },
-  ];
-
-  const mockLogs: StudyLog[] = [
-    {
-      id: '1',
-      userId: '1',
-      groupId: '1',
-      minutes: 120,
-      note: 'Studied history topics for ENEM',
-      createdAt: '2023-03-15T14:30:00.000Z',
-      user: {
-        username: 'user1',
-        avatarUrl: undefined,
-      }
-    },
-    {
-      id: '2',
-      userId: '2',
-      groupId: '1',
-      minutes: 90,
-      note: 'Math practice exercises',
-      createdAt: '2023-03-16T10:15:00.000Z',
-      user: {
-        username: 'user2',
-      }
-    },
-  ];
-
-  const mockLeaderboard: LeaderboardEntry[] = [
-    {
-      userId: '1',
-      username: 'user1',
-      totalMinutes: 350,
-    },
-    {
-      userId: '2',
-      username: 'user2',
-      totalMinutes: 275,
-    },
-  ];
-
   const fetchGroups = async () => {
-    if (!user) return;
-    
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      setGroups(mockGroups);
-    } catch (err) {
-      setError('Failed to fetch study groups');
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    // futuramente implementaremos fetch real
+    setGroups([]);
   };
 
-  const createGroup = async (groupData: Partial<StudyGroup>) => {
-    if (!user) return;
-    
+  const createGroup = async (groupData: Partial<StudyGroup> & { image?: File }) => {
     setIsLoading(true);
     setError(null);
-    
+
+    console.log("DENTRO DO CONTEXTO",groupData)
+
     try {
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const newGroup: StudyGroup = {
-        id: Date.now().toString(),
-        name: groupData.name || 'New Study Group',
-        description: groupData.description || '',
-        createdAt: new Date().toISOString(),
-        startDate: groupData.startDate || new Date().toISOString(),
-        endDate: groupData.endDate,
-        inviteCode: Math.random().toString(36).substring(2, 8).toUpperCase(),
+ 
+      const group = await createGroupService({
+        name: groupData.name!,
+        description: groupData.description!,
+        startDate: new Date(groupData.startDate!),
+        endDate: groupData.endDate ? new Date(groupData.endDate) : undefined,
         isPublic: groupData.isPublic || false,
-        ownerId: user.id,
-      };
-      
-      setGroups([...groups, newGroup]);
+        imageSrc:groupData.imageSrc,
+      });
+
+      toast({
+        title: "Group created!",
+        description: "Your study group has been created successfully.",
+      });
+
+      setGroups([...groups, group]);
     } catch (err) {
-      setError('Failed to create study group');
+      setError("Failed to create group");
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -160,31 +85,7 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const joinGroup = async (inviteCode: string) => {
-    if (!user) return;
-    
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // In a real app, this would verify the invite code with the backend
-      const foundGroup = mockGroups.find(g => g.inviteCode === inviteCode);
-      
-      if (foundGroup) {
-        if (!groups.some(g => g.id === foundGroup.id)) {
-          setGroups([...groups, foundGroup]);
-        }
-      } else {
-        setError('Invalid invite code');
-      }
-    } catch (err) {
-      setError('Failed to join study group');
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    // em breve
   };
 
   const selectGroup = (groupId: string) => {
@@ -197,72 +98,15 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const addStudyLog = async (groupId: string, minutes: number, note?: string) => {
-    if (!user) return;
-    
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const newLog: StudyLog = {
-        id: Date.now().toString(),
-        userId: user.id,
-        groupId,
-        minutes,
-        note,
-        createdAt: new Date().toISOString(),
-        user: {
-          username: user.username,
-          avatarUrl: user.avatarUrl,
-        }
-      };
-      
-      setGroupLogs([newLog, ...groupLogs]);
-    } catch (err) {
-      setError('Failed to add study log');
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    // em breve
   };
 
   const fetchGroupLogs = async (groupId: string) => {
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Filter logs for the specific group
-      const filteredLogs = mockLogs.filter(log => log.groupId === groupId);
-      setGroupLogs(filteredLogs);
-    } catch (err) {
-      setError('Failed to fetch group logs');
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    // em breve
   };
 
   const fetchLeaderboard = async (groupId: string) => {
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // In a real app, this would fetch the leaderboard for the specified group
-      setLeaderboard(mockLeaderboard);
-    } catch (err) {
-      setError('Failed to fetch leaderboard');
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    // em breve
   };
 
   useEffect(() => {

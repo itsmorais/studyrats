@@ -1,9 +1,8 @@
-
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { BookOpen, Menu, Users, Award, Home, LogOut } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from "react";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
+import { BookOpen, Menu, Users, Award, Home, LogOut } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -11,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
+} from "@/components/ui/sheet";
 
 const Layout = () => {
   const { user, logout } = useAuth();
@@ -24,50 +23,40 @@ const Layout = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useEffect(() => {
-    if (!user && !location.pathname.includes('/auth')) {
-      navigate('/');
-    }
-  }, [user, navigate, location]);
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
   };
 
   const navItems = [
-    { path: '/', icon: <Home size={20} />, label: 'Home' },
-    { path: '/groups', icon: <Users size={20} />, label: 'My Groups' },
-    { path: '/logs', icon: <BookOpen size={20} />, label: 'Study Logs' },
-    { path: '/leaderboard', icon: <Award size={20} />, label: 'Leaderboard' },
+    { path: "/", icon: <Home size={20} />, label: "Home" },
+    { path: "/groups", icon: <Users size={20} />, label: "My Groups" },
+    { path: "/logs", icon: <BookOpen size={20} />, label: "Study Logs" },
+    { path: "/leaderboard", icon: <Award size={20} />, label: "Leaderboard" },
   ];
-
-  if (!user) {
-    return <Outlet />;
-  }
 
   const NavContent = () => (
     <div className="flex flex-col h-full">
       <div className="flex flex-col space-y-4">
         {navItems.map((item) => (
           <SheetClose asChild key={item.path}>
-
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`flex items-center gap-2 p-2 rounded-lg transition-colors
-              ${location.pathname === item.path
-                ? 'bg-studyrat-purple/20 text-studyrat-purple'
-                : 'hover:bg-studyrat-border text-studyrat-secondary hover:text-studyrat-light'
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex items-center gap-2 p-2 rounded-lg transition-colors
+              ${
+                location.pathname === item.path
+                  ? "bg-studyrat-purple/20 text-studyrat-purple"
+                  : "hover:bg-studyrat-border text-studyrat-secondary hover:text-studyrat-light"
               }`}
-          >
-            {item.icon}
-            <span>{item.label}</span>
-          </Link>
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </Link>
           </SheetClose>
         ))}
       </div>
@@ -88,12 +77,11 @@ const Layout = () => {
     <div className="flex h-screen bg-studyrat-dark">
       {!isMobile && (
         <aside className="w-64 border-r border-studyrat-border p-4 flex flex-col">
-          <div className="flex items-center gap-2 mb-8 text-xl text-gradient font-bold" onClick={() => navigate("/")}>
-            <img
-              src="/rat.png"
-              alt="StudyRat Logo"
-              className="w-12 h-12"
-            />
+          <div
+            className="flex items-center gap-2 mb-8 text-xl text-gradient font-bold"
+            onClick={() => navigate("/")}
+          >
+            <img src="/rat.png" alt="StudyRat Logo" className="w-12 h-12" />
             <span>StudyRats</span>
           </div>
           <NavContent />
@@ -104,21 +92,23 @@ const Layout = () => {
         {isMobile && (
           <header className="border-b border-studyrat-border p-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xl text-gradient font-bold" onClick={() => navigate("/")}>
-                <img
-                  src="/rat.png"
-                  alt="StudyRat Logo"
-                  className="w-12 h-12"
-                />
+              <div
+                className="flex items-center gap-2 text-xl text-gradient font-bold"
+                onClick={() => navigate("/")}
+              >
+                <img src="/rat.png" alt="StudyRat Logo" className="w-12 h-12" />
                 <span className="text-3xl align-center">StudyRats</span>
               </div>
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" >
+                  <Button variant="ghost" size="icon">
                     <Menu size={20} />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="bg-studyrat-dark border-studyrat-border">
+                <SheetContent
+                  side="left"
+                  className="bg-studyrat-dark border-studyrat-border"
+                >
                   <SheetHeader className="mb-4">
                     <SheetTitle className="text-gradient flex items-center gap-2">
                       <img
@@ -126,7 +116,7 @@ const Layout = () => {
                         alt="StudyRat Logo"
                         className="w-12 h-12"
                       />
-                      <span className="text-2xl align-center">{user.username}</span>
+                      <span className="text-2xl align-center">{user.name}</span>
                     </SheetTitle>
                   </SheetHeader>
                   <div className="py-2">

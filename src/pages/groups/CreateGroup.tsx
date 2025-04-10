@@ -1,12 +1,11 @@
-
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Calendar, Info } from 'lucide-react';
-import { useGroup } from '../../contexts/GroupContext';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Calendar, Info } from "lucide-react";
+import { useGroup } from "../../contexts/GroupContext";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,18 +14,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
-import { useToast } from '@/components/ui/use-toast';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar as CalendarComponent } from '@/components/ui/calendar';
-import { format } from 'date-fns';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { uploadImageToCloudinary } from '@/services/uploadImage';
+
 
 const formSchema = z.object({
-  name: z.string().min(3, 'Group name must be at least 3 characters'),
-  description: z.string().min(10, 'Description must be at least 10 characters'),
+  name: z.string().min(3, "Group name must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
   startDate: z.date(),
   endDate: z.date().optional(),
   isPublic: z.boolean().default(false),
@@ -39,34 +44,44 @@ const CreateGroup = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [error, setError] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       startDate: new Date(),
       isPublic: false,
+      imageSrc: "",
     },
   });
 
   const onSubmit = async (data: FormData) => {
+    console.log("ON SUBMIT ATIVADO",data)
     try {
+      let imageUrl = "";
+
+      if (selectedImage) {
+        imageUrl = await uploadImageToCloudinary(selectedImage);
+      }
+      console.log("imageURL",imageUrl)
       await createGroup({
         name: data.name,
         description: data.description,
         startDate: data.startDate.toISOString(),
         endDate: data.endDate ? data.endDate.toISOString() : undefined,
         isPublic: data.isPublic,
+        imageSrc: imageUrl
       });
-      
+
       toast({
         title: "Group created!",
         description: "Your study group has been created successfully.",
       });
-      navigate('/groups');
+      navigate("/groups");
     } catch (err) {
-      setError('Failed to create group. Please try again.');
+      setError("Failed to create group. Please try again.");
       toast({
         variant: "destructive",
         title: "Creation failed",
@@ -109,6 +124,20 @@ const CreateGroup = () => {
               </FormItem>
             )}
           />
+
+          <FormItem>
+            <FormLabel>Group Image</FormLabel>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                if (e.target.files?.[0]) {
+                  setSelectedImage(e.target.files[0]);
+                }
+              }}
+              className="bg-studyrat-border/30 border-studyrat-border"
+            />
+          </FormItem>
 
           <FormField
             control={form.control}
@@ -216,13 +245,22 @@ const CreateGroup = () => {
                     </FormDescription>
                     <Popover>
                       <PopoverTrigger>
-                        <Info size={14} className="text-studyrat-secondary hover:text-studyrat-light cursor-help" />
+                        <Info
+                          size={14}
+                          className="text-studyrat-secondary hover:text-studyrat-light cursor-help"
+                        />
                       </PopoverTrigger>
                       <PopoverContent className="w-80">
                         <div className="space-y-2 text-sm">
                           <h4 className="font-semibold">About Public Groups</h4>
-                          <p>Public groups can be discovered by other students. Anyone with the invite code can join.</p>
-                          <p>Private groups are only visible to members and require an invite code to join.</p>
+                          <p>
+                            Public groups can be discovered by other students.
+                            Anyone with the invite code can join.
+                          </p>
+                          <p>
+                            Private groups are only visible to members and
+                            require an invite code to join.
+                          </p>
                         </div>
                       </PopoverContent>
                     </Popover>
@@ -243,7 +281,7 @@ const CreateGroup = () => {
               type="button"
               variant="outline"
               className="border-studyrat-border"
-              onClick={() => navigate('/groups')}
+              onClick={() => navigate("/groups")}
             >
               Cancel
             </Button>
@@ -252,7 +290,7 @@ const CreateGroup = () => {
               className="bg-studyrat-purple hover:bg-studyrat-purpleLight"
               disabled={isLoading}
             >
-              {isLoading ? 'Creating...' : 'Create Group'}
+              {isLoading ? "Creating..." : "Create Group"}
             </Button>
           </div>
         </form>

@@ -17,11 +17,11 @@ const Groups = () => {
   const { groups, isLoading } = useGroup();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredGroups = groups.filter(
-    (group) =>
-      group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      group.description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredGroups = groups.filter(group =>
+    (group.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (group.description || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
+  
 
   return (
     <div className="space-y-6">
@@ -32,7 +32,7 @@ const Groups = () => {
             Manage and access your study groups
           </p>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-6 items-center">
           <div className="relative">
             <Search
               size={18}
@@ -60,7 +60,7 @@ const Groups = () => {
       ) : filteredGroups.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredGroups.map((group) => (
-            <Link key={group.id} to={`/groups/${group.id}`}>
+            <Link key={group.id} to={`/groups/${group.groupCode}`}>
               <Card className="bg-studyrat-border/20 border-studyrat-border hover:border-studyrat-purple transition-colors h-full">
                 <img
                   src={group.imageSrc}
@@ -101,8 +101,12 @@ const Groups = () => {
                 <CardFooter className="border-t border-studyrat-border pt-3 flex justify-between items-center">
                   <div className="flex items-center gap-1 text-xs">
                     <Users size={14} className="text-studyrat-secondary" />
-                    <span className="text-studyrat-secondary">Members</span>
+                    <span className="text-studyrat-secondary">
+                      {group._count?.memberships} member
+                      {group._count?.memberships !== 1 ? "s" : ""}
+                    </span>
                   </div>
+
                   <div className="text-xs">
                     <span className="text-studyrat-purple font-semibold">
                       #{group.groupCode}

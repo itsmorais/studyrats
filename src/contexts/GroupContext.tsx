@@ -3,7 +3,7 @@ import { StudyGroup, StudyLog, LeaderboardEntry } from "../types";
 import { useAuth } from "./AuthContext";
 import createGroupService from "@/services/createGroupService";
 import { useToast } from "@/components/ui/use-toast";
-import {listGroupServices} from "@/services/listGroupService"
+import { listGroupServices } from "@/services/listGroupService";
 interface GroupContextType {
   groups: StudyGroup[];
   currentGroup: StudyGroup | null;
@@ -59,7 +59,7 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
   const fetchGroups = async () => {
     try {
       const groups = await listGroupServices();
-      console.log("FETCH GROUPS CONTEXT",groups.data)
+      console.log("FETCH GROUPS CONTEXT", groups.data);
       setGroups(groups.data);
     } catch (err) {
       setError("Failed to fetch groups.");
@@ -85,12 +85,12 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
         imageSrc: groupData.imageSrc,
       });
 
+      await fetchGroups();
+
       toast({
         title: "Group created!",
         description: "Your study group has been created successfully.",
       });
-
-      setGroups([...groups, group]);
     } catch (err) {
       setError("Failed to create group");
       console.error(err);

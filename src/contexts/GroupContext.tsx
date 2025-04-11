@@ -4,6 +4,7 @@ import { useAuth } from "./AuthContext";
 import createGroupService from "@/services/createGroupService";
 import { useToast } from "@/components/ui/use-toast";
 import { listGroupServices } from "@/services/listGroupService";
+import {joinGroupService} from "@/services/joinGroup"
 interface GroupContextType {
   groups: StudyGroup[];
   currentGroup: StudyGroup | null;
@@ -99,10 +100,34 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const joinGroup = async (inviteCode: string) => {
-    // em breve
+  const joinGroup = async (groupCode: string) => {
+    setIsLoading(true);
+    setError(null);
+  
+    try {
+      const joinedGroup = await joinGroupService(groupCode);
+  
+      const alreadyIn = groups.some((g) => g.id === joinedGroup.id);
+      if (!alreadyIn) {
+        setGroups([...groups, joinedGroup]);
+      }
+  
+      toast({
+        title: "You joined the group!",
+        description: `Welcome to "${joinedGroup.name}"`,
+      });
+    } catch (err) {
+      setError("Failed to join group");
+      toast({
+        variant: "destructive",
+        title: "Could not join group",
+        description: "Invalid code or you are already in.",
+      });
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
-
   const selectGroup = (groupId: string) => {
     const group = groups.find((g) => g.id === groupId);
     if (group) {

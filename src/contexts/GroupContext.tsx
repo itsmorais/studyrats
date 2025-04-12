@@ -4,7 +4,8 @@ import { useAuth } from "./AuthContext";
 import createGroupService from "@/services/createGroupService";
 import { useToast } from "@/components/ui/use-toast";
 import { listGroupServices } from "@/services/listGroupService";
-import {joinGroupService} from "@/services/joinGroup"
+import { joinGroupService } from "@/services/joinGroup";
+import { createStudyLogService } from "@/services/logService";
 interface GroupContextType {
   groups: StudyGroup[];
   currentGroup: StudyGroup | null;
@@ -17,9 +18,11 @@ interface GroupContextType {
   joinGroup: (inviteCode: string) => Promise<void>;
   selectGroup: (groupId: string) => void;
   addStudyLog: (
-    groupId: string,
-    minutes: number,
-    note?: string
+    title: string,
+    note?: string,
+    studiedAt: Date,
+    imageUrl: string,
+    groupsIds: number[]
   ) => Promise<void>;
   fetchGroupLogs: (groupId: string) => Promise<void>;
   fetchLeaderboard: (groupId: string) => Promise<void>;
@@ -60,7 +63,6 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
   const fetchGroups = async () => {
     try {
       const groups = await listGroupServices();
-      console.log("FETCH GROUPS CONTEXT", groups.data);
       setGroups(groups.data);
     } catch (err) {
       setError("Failed to fetch groups.");
@@ -103,15 +105,15 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
   const joinGroup = async (groupCode: string) => {
     setIsLoading(true);
     setError(null);
-  
+
     try {
       const joinedGroup = await joinGroupService(groupCode);
-  
+
       const alreadyIn = groups.some((g) => g.id === joinedGroup.id);
       if (!alreadyIn) {
         setGroups([...groups, joinedGroup]);
       }
-  
+
       toast({
         title: "You joined the group!",
         description: `Welcome to "${joinedGroup.name}"`,
@@ -138,11 +140,29 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const addStudyLog = async (
-    groupId: string,
-    minutes: number,
-    note?: string
+    data: {
+      title: string;
+      note?: string;
+      studiedAt: Date;
+      imageUrl?: string;
+      groupIds: number[];
+    }
   ) => {
-    // em breve
+    try {
+      const log = await createStudyLogService(data);
+
+      toast({
+        title: "Study log created!",
+        description: "Your study log has been added.",
+      });
+    } catch (err) {
+      toast({
+        title: "Failed to create log",
+        variant: "destructive",
+        description: "Something went wrong while saving your log.",
+      });
+      console.error(err);
+    }
   };
 
   const fetchGroupLogs = async (groupId: string) => {

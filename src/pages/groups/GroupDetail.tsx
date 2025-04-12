@@ -9,7 +9,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Award, BookOpen, Clock, Copy, Plus, Share2, Users } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { StudyLog } from '@/types';
-import StudyLogForm from '@/components/StudyLogForm';
 import StudyLogItem from '@/components/StudyLogItem';
 import LeaderboardTable from '@/components/LeaderboardTable';
 

@@ -16,16 +16,23 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
+import { uploadImageToCloudinary } from '@/services/uploadImage';
 
-const formSchema = z.object({
-  username: z.string().min(3, 'Username must be at least 3 characters'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  confirmPassword: z.string().min(6, 'Password must be at least 6 characters'),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+const formSchema = z
+  .object({
+    username: z.string().min(3, 'Username must be at least 3 characters'),
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(6, 'Password must be at least 6 characters'),
+    confirmPassword: z.string().min(6, 'Password must be at least 6 characters'),
+    avatar: z
+      .any()
+      .refine((file) => file instanceof File || file === undefined, 'Image is required'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
+
 
 type FormData = z.infer<typeof formSchema>;
 
@@ -51,9 +58,18 @@ const Register = () => {
     },
   });
 
+
+  
+  
   const onSubmit = async (data: FormData) => {
     try {
-      await register(data.username, data.email, data.password);
+      let avatarUrl = '';
+  
+      if (data.avatar) {
+        avatarUrl = await uploadImageToCloudinary(data.avatar);
+      }
+  
+      await register(data.username, data.email, data.password, avatarUrl);
     } catch (err) {
       setAuthError('Registration failed. Please try again.');
       toast({
@@ -63,6 +79,7 @@ const Register = () => {
       });
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-fit bg-studyrat-dark p-4">
@@ -109,6 +126,26 @@ const Register = () => {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="avatar"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Avatar</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => field.onChange(e.target.files?.[0])}
+                      className="bg-studyrat-border/30 border-studyrat-border"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
 
             <FormField
               control={form.control}

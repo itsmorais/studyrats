@@ -19,7 +19,6 @@ import {
 
 import { useGroup } from "@/contexts/GroupContext";
 import { uploadImageToCloudinary } from "@/services/uploadImage";
-import SelectGroups from "../../components/SelectGroups";
 
 interface StudyLogFormProps {
   onSubmit: (data: {

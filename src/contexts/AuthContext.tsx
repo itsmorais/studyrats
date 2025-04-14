@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 interface AuthContextType {
   user: AuthUser | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (username: string, email: string, password: string) => Promise<void>;
+  register: (username: string, email: string, password: string, avatarUrl: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
   error: string | null;
@@ -80,11 +80,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const register = async (username: string, email: string, password: string) => {
+  const register = async (username: string, email: string, password: string, avatarUrl: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      const registerNewUser = await registerService(username, email, password);
+      const registerNewUser = await registerService(username, email, password, avatarUrl);
 
 
       if (registerNewUser.status === 201) {

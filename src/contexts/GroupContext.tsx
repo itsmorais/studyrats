@@ -22,13 +22,13 @@ interface GroupContextType {
   selectGroup: (groupId: string) => void;
   addStudyLog: (
     title: string,
-    note?: string,
     studiedAt: Date,
     imageUrl: string,
-    groupsIds: number[]
+    groupsIds: number[],
+    note?: string,
   ) => Promise<void>;
   fetchGroupLogs: (groupId: string) => Promise<void>;
-  fetchLeaderboard: (groupId: string) => Promise<void>;
+  fetchLeaderboard: (groupId: string,range:string) => Promise<void>;
   isLoading: boolean;
   error: string | null;
 }
@@ -70,7 +70,7 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
   const fetchGroups = async () => {
     try {
       const groups = await listGroupServices();
-      setGroups(groups.data);
+      setGroups(groups);
     } catch (err) {
       setError("Failed to fetch groups.");
       console.error(err);
@@ -140,7 +140,7 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
   const selectGroup = async (groupId: string) => {
     try {
       setIsLoading(true);
-      const detail = await getGroupDetailService(groupId);
+      const detail = await getGroupDetailService(Number(groupId));
 
       console.log("RESPONSE DO SELECT GROUP DO CONTEXT", detail);
       setCurrentGroup({
@@ -165,7 +165,7 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
     groupIds: number[];
   }) => {
     try {
-      const log = await createStudyLogService(data);
+      await createStudyLogService(data);
 
       toast({
         title: "Study log created!",

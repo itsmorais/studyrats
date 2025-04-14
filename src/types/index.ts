@@ -13,6 +13,10 @@ export interface AuthUser extends User {
 
 // Study group types
 export interface StudyGroup {
+  owner: any;
+  members: any;
+  _count: any;
+  description: string;
   id: number;
   name: string;
   groupCode: string;
@@ -21,7 +25,7 @@ export interface StudyGroup {
   ownerId: string;
   startDate: Date;
   endDate: Date | null;
-  createdAt: date;
+  createdAt: Date;
 }
 
 // Study log types

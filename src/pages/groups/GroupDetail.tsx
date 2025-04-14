@@ -20,6 +20,7 @@ import StudyLogItem from "@/components/StudyLogItem";
 import LeaderboardTable from "@/components/LeaderboardTable";
 import LeaderboardSection from "../../components/LeaderboardSection";
 import GroupMemberList from "../../components/MembrerList";
+import StudyLogForm from "../logGroup/Logs";
 
 const GroupDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,10 +49,10 @@ const GroupDetail = () => {
     if (currentGroup) {
       await addStudyLog({
         title: "Estudo feito",
-        note,
         studiedAt: new Date(),
         imageUrl: "",
         groupIds: [currentGroup.id],
+        note,
       });
       setShowStudyForm(false);
       toast({
@@ -81,6 +82,15 @@ const GroupDetail = () => {
 
   return (
     <div className="space-y-6 mt-3">
+      <div className="w-full h-full">
+        <Card className="bg-studyrat-border/20 border-studyrat-border hover:border-studyrat-purple transition-colors ">
+          <img
+            src={currentGroup.imageSrc}
+            alt={currentGroup.name}
+            className="w-full h-40 object-cover rounded-t-lg"
+          />
+        </Card>
+      </div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold">{currentGroup.name}</h1>
@@ -122,16 +132,7 @@ const GroupDetail = () => {
         </div>
       </div>
 
-      {showStudyForm && (
-        <Card className="bg-studyrat-border/20 border-studyrat-border mb-6">
-          <CardContent className="pt-6">
-            <StudyLogForm
-              onSubmit={handleAddLog}
-              onCancel={() => setShowStudyForm(false)}
-            />
-          </CardContent>
-        </Card>
-      )}
+
 
       <Tabs defaultValue="feed">
         <TabsList className="bg-studyrat-border/20">
@@ -168,7 +169,7 @@ const GroupDetail = () => {
               <Button
                 variant="link"
                 className="text-studyrat-purple mt-2"
-                onClick={() => setShowStudyForm(true)}
+                onClick={() => navigate("/logs")}
               >
                 Add the first study log
               </Button>

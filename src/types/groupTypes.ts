@@ -4,4 +4,5 @@ export interface createGroupRequest{
     isPublic: boolean;
     startDate: Date
     endDate?: Date;
+    description:string;
 }

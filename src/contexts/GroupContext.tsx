@@ -6,6 +6,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { listGroupServices } from "@/services/listGroupService";
 import { joinGroupService } from "@/services/joinGroup";
 import { createStudyLogService } from "@/services/logService";
+import { getGroupDetailService } from "@/services/getGroupDetailService";
+import api from "@/services/api";
+
 interface GroupContextType {
   groups: StudyGroup[];
   currentGroup: StudyGroup | null;
@@ -42,6 +45,7 @@ const GroupContext = createContext<GroupContextType>({
   addStudyLog: async () => {},
   fetchGroupLogs: async () => {},
   fetchLeaderboard: async () => {},
+
   isLoading: false,
   error: null,
 });
@@ -59,6 +63,9 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [leaderboardRange, setLeaderboardRange] = useState<
+    "weekly" | "monthly" | "yearly" | "all"
+  >("weekly");
 
   const fetchGroups = async () => {
     try {
@@ -130,24 +137,33 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsLoading(false);
     }
   };
-  const selectGroup = (groupId: string) => {
-    const group = groups.find((g) => g.id === groupId);
-    if (group) {
-      setCurrentGroup(group);
-      fetchGroupLogs(groupId);
-      fetchLeaderboard(groupId);
+  const selectGroup = async (groupId: string) => {
+    try {
+      setIsLoading(true);
+      const detail = await getGroupDetailService(groupId);
+
+      console.log("RESPONSE DO SELECT GROUP DO CONTEXT", detail);
+      setCurrentGroup({
+        ...detail.group,
+        members: detail.members,
+      });
+      setGroupLogs(detail.feed);
+      setLeaderboard(detail.leaderboard);
+    } catch (err) {
+      setError("Failed to fetch group details");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const addStudyLog = async (
-    data: {
-      title: string;
-      note?: string;
-      studiedAt: Date;
-      imageUrl?: string;
-      groupIds: number[];
-    }
-  ) => {
+  const addStudyLog = async (data: {
+    title: string;
+    note?: string;
+    studiedAt: Date;
+    imageUrl?: string;
+    groupIds: number[];
+  }) => {
     try {
       const log = await createStudyLogService(data);
 
@@ -169,8 +185,18 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({
     // em breve
   };
 
-  const fetchLeaderboard = async (groupId: string) => {
-    // em breve
+  const fetchLeaderboard = async (
+    groupId: string,
+    range: "weekly" | "monthly" | "yearly" | "all" = "weekly"
+  ) => {
+    try {
+      const response = await api.get(
+        `/group/${groupId}/leaderboard?range=${range}`
+      );
+      setLeaderboard(response.data.leaderboard);
+    } catch (err) {
+      console.error("Erro ao buscar leaderboard", err);
+    }
   };
 
   useEffect(() => {

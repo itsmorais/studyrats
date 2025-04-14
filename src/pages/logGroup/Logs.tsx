@@ -264,7 +264,7 @@ const StudyLogForm = ({ onSubmit, onCancel }: StudyLogFormProps) => {
       </div>
 
       <div className="flex justify-end gap-2 pt-4">
-        <Button type="button" variant="outline" onClick={onCancel}>
+        <Button type="button" variant="outline" onClick={() => navigate("/")}>
           Cancel
         </Button>
         <Button type="submit" disabled={isUploading}>

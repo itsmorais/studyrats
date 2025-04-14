@@ -38,7 +38,7 @@ const Home = () => {
           <h2 className="text-xl font-semibold mb-4">Your Study Groups</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {groups.slice(0, 2).map((group) => (
-              <Link key={group.id} to={`/groups/${group.groupCode}`}>
+              <Link key={group.id} to={`/groups/${group.id}`}>
               <Card className="bg-studyrat-border/20 border-studyrat-border hover:border-studyrat-purple transition-colors h-full">
                 <img
                   src={group.imageSrc}

@@ -60,7 +60,7 @@ const Groups = () => {
       ) : filteredGroups.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredGroups.map((group) => (
-            <Link key={group.id} to={`/groups/${group.groupCode}`}>
+            <Link key={group.id} to={`/groups/${group.id}`}>
               <Card className="bg-studyrat-border/20 border-studyrat-border hover:border-studyrat-purple transition-colors h-full">
                 <img
                   src={group.imageSrc}

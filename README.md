@@ -17,14 +17,6 @@ Inspired by the GymRats fitness culture, StudyRats turns studying into missions 
 
 ---
 
-## 💌 Contact & Interest
-
-Want to be notified at launch or test the MVP?
-
-👉 Sign up on the landing page: [studyrats.app](https://studyrats-lp.vercel.app/)
-
----
-
 ## ✨ Features (MVP)
 
 | ID | Feature | Version |
@@ -118,15 +110,6 @@ Built with focus, caffeine, and a bit of academic desperation. ☕💻
 Inspirado na cultura fitness do GymRats, o StudyRats transforma estudos em missões com ranking, grupos de apoio e muita cafeína digital.
 
 ---
-
-## 💌 Contato e Interesse
-
-Quer ser avisado no lançamento ou testar o MVP?
-
-👉 Preencha na landing page: [studyrats.app](https://studyrats-lp.vercel.app/)  
-
----
-
 
 ## ✨ Funcionalidades (MVP)
 

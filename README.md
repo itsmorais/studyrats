@@ -1,4 +1,103 @@
-# 🐭 StudyRats
+# 🐭 StudyRats ENG
+<div display="flex">
+
+<img src="https://github.com/user-attachments/assets/4abf36d5-c50c-42e4-a555-2fd9bc93d02c" alt="StudyRats Hero" width="200" height="200"/>
+
+> **Powered by caffeine.**  
+> A social and fun platform to turn your study routine into a collaborative game.
+</div>
+
+---
+
+## 🚀 Overview
+
+**StudyRats** is an app for students who want to study with consistency, focus, and motivation — together.
+
+Inspired by the GymRats fitness culture, StudyRats turns studying into missions with leaderboards, support groups, and lots of digital caffeine.
+
+---
+
+## 💌 Contact & Interest
+
+Want to be notified at launch or test the MVP?
+
+👉 Sign up on the landing page: [studyrats.app](https://studyrats-lp.vercel.app/)
+
+---
+
+## ✨ Features (MVP)
+
+| ID | Feature | Version |
+|----|---------|---------|
+| FR-01 | Authentication with JWT | MVP |
+| FR-02 | Create study groups | MVP |
+| FR-03 | Join groups via invite code | MVP |
+| FR-04 | Study session logs | MVP |
+| FR-05 | View group members | MVP |
+| FR-06 | Leaderboard by study time | MVP |
+| FR-07 | Internal group feed with study logs | MVP |
+| FR-08 | Personal study history | MVP |
+
+🪰 See the full roadmap below.
+
+---
+
+## 🧩 Tech Stack
+
+| Layer | Stack |
+|-------|-------|
+| Frontend | React + TypeScript + TailwindCSS |
+| Backend | Node.js + Express + Prisma |
+| Auth | JWT |
+| DB | PostgreSQL |
+| Deployment | Vercel (FE) + Railway (BE) |
+| Mobile (future) | React Native or PWA |
+| Image Storage | Cloudinary |
+
+---
+
+## 🧠 Target Audience
+
+- University students (especially in Brazil 🇧🇷)
+- Students preparing for ENEM and other entrance exams
+- Bootcamp students, self-learners, and study squads
+
+---
+
+## 🗓️ Roadmap
+
+| Version | Features | Codename |
+|---------|----------|----------|
+| 🟢 MVP | Private groups, basic feed, leaderboard | ☕ Espresso Shot |
+| 🔸 v1.1 | Image upload + reactions | 🔥 Feed Fogo |
+| 🟠 v1.2 | Comments on study logs | 💬 Reply Rush |
+| 🔵 v1.3 | Explore public groups + open feed | 🌍 Open Grounds |
+| 🔸 v2.0 | Premium, university onboarding, XP/streak | 🏆 College League |
+
+---
+
+## 🎨 Visual Identity
+
+| Element | Color |
+|---------|-------|
+| Background | `#1C1C1E` |
+| Main text | `#F2F2F7` |
+| Highlights | `#A259FF`, `#C873FF` |
+| Gradients | `from-[#fff] to-[#A259FF]` |
+| Font | `font-sans` (Tailwind) |
+
+---
+
+## 📚 License
+
+This project is under the MIT license.  
+Built with focus, caffeine, and a bit of academic desperation. ☕💻
+
+---
+
+
+
+# 🐭 StudyRats PT-BR
 <div display="flex">
 
 <img src="https://github.com/user-attachments/assets/4abf36d5-c50c-42e4-a555-2fd9bc93d02c" alt="StudyRats Hero" width="200" height="200"/>

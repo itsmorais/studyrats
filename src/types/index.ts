@@ -1,7 +1,7 @@
 // User types
 export interface User {
   id: string;
-  username: string;
+  name: string;
   email: string;
   createdAt: string;
   avatarUrl?: string;
@@ -37,7 +37,7 @@ export interface StudyLog {
   note?: string;
   createdAt: string;
   user: {
-    username: string;
+    name: string;
     avatarUrl?: string;
   };
 }
@@ -45,7 +45,8 @@ export interface StudyLog {
 // Leaderboard entry type
 export interface LeaderboardEntry {
   userId: string;
-  username: string;
+  name: string;
   avatarUrl?: string;
   totalMinutes: number;
+  position: number;
 }
